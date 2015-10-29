@@ -5,7 +5,7 @@ body, html {
   height: 100%;
 }
 
-body, div, span, a, img, h1, h2, h3, h4, h5 {
+body, div, span, a, img, h1, h2, h3, h4, h5, button {
   box-sizing: border-box;
   position: relative;
 
@@ -25,7 +25,9 @@ body, div, span, a, img, h1, h2, h3, h4, h5 {
 }
 
 body {
-  background-color: #F7F8FA;
+  /*background-color: #F7F8FA;*/
+  background: url("../img/bg.jpg") bottom no-repeat;
+  background-size: 100% 50%;
   /*background-color: #FFFFFF;*/
   color: #202020;
   font-family: "Avenir Next", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -66,9 +68,10 @@ a {
 /*layout*/
 
 .site {
+  background: linear-gradient(to bottom, rgba(247,248,250,1) 0%,rgb(223,225,238) 50%, transparent 100%);
   flex-direction: row;
   height: 100%;
-  width: 100%;
+  /*width: 100%;*/
 
 }
 
@@ -78,11 +81,17 @@ a {
 }
 
 
-.site__left-siderbar {
-  background-color: rgba(0,255,0,0.3);
+.site__left-sidebar {
+  /*background-color: #F7F8FA;*/
   width: 170px;
   height: 100%;
   position: fixed;
+}
+
+.site__left-sidebar h2 {
+  color: #515151;
+  font-weight: 500;
+  padding-left: 20px;
 }
 
 .site__content {
@@ -91,29 +100,79 @@ a {
   flex-basis: 0;
 }
 
-.site__right-siderbar {
-  background-color: rgba(0,255,0,0.3);
+.site__right-sidebar {
+  background-color: #C4CCDA;
+  /*transition: flex .5s linear;*/
   position: fixed;
   height: 100%;
+  padding: 0 20px;
 
 }
 
 
-@media only screen and (min-width: 320px) and (max-width: 768px) {
+@media only screen and (max-width: 600px) {
+
+  .site__main {
+    width: 20%;
+  }
+
+  .site__left-sidebar {
+    display: none;
+  }
+
+
+  .site__content {
+    position: absolute;
+    width: 100vw;
+    padding-left: 0;
+  }
+
+  .site__right-sidebar {
+    display: none;
+    width: 80%;
+  }
+
+  body.js-show-right-sidebar .site__right-sidebar {
+    display: flex;
+  }
+
+  .product {
+    width: 100%;
+  }
+
+  .site__right-sidebar-toggle {
+    display: flex;
+  }
+
+  body.js-show-right-sidebar .site__right-sidebar-toggle {
+    width: 20%;
+  }
+
+}
+
+
+@media only screen and (min-width: 600px) and (max-width: 950px) {
   .site__main {
     width: 60%;
   }
-  .site__right-siderbar {
+  .site__right-sidebar {
     width: 40%;
+  }
+
+  .product {
+    width: 100%;
   }
 }
 
-@media only screen and (min-width: 769px) and (max-width: 1329px) {
+@media only screen and (min-width: 950px) and (max-width: 1330px) {
   .site__main {
     width: 70%;
   }
-  .site__right-siderbar {
+  .site__right-sidebar {
     width: 30%;
+  }
+  .product {
+    width: 50%;
   }
 }
 
@@ -121,13 +180,16 @@ a {
   .site__main {
     width: 80%;
   }
-  .site__right-siderbar {
+  .site__right-sidebar {
     width: 20%;
+  }
+  .product {
+    width: 33.33%;
   }
 }
 
 
-/*biz*/
+/* products */
 
 
 .products {
@@ -136,12 +198,65 @@ a {
 }
 
 .product {
-  background-color: rgba(0,255,0,0.2);
-  width: 50%;
-  height: 250px;
-  margin-bottom: 10px;
+  /*width: 50%;*/
+  margin-bottom: 40px;
+  padding: 0 8px;
 }
 
+
+.product__display {
+  border: 5px solid #D8D8D8;
+}
+
+.product__img {
+  width: 100%;
+}
+
+.product__add {
+  background-color: #D8D8D8;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+.product__price {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #353B46;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.product__description {
+  flex-direction: row;
+  padding-top: 15px;
+}
+
+.product__name {
+  flex: 1 0;
+  color: #202020;
+  font-size: 18px;
+  font-family: AvenirNext-UltraLight;
+  word-break: break-all;
+
+}
+
+.product__heart {
+  flex: 0 auto;
+  align-self: flex-end;
+  width: 32px;
+}
+
+.product__heart :hover {
+  color: #DE5E5E;
+}
+
+
+/*cart*/
 
 
 .cart {
@@ -151,37 +266,155 @@ a {
   overflow-y: scroll;
 }
 
+.cart__title {
+  color: #202020;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
 
 .cart__content {
+  margin: 15px;
 }
 
 .cart-item {
-  height: 150px;
   margin-bottom: 20px;
-  background: rgba(0,255,0,0.3);
 }
+
+
+
+.cart-item__top-part {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-item__image {
+  width: 33%;
+  /*flex: 0 33%;*/
+  height: 57px;
+}
+
+.cart-item__image img{
+  width: 100%;
+  border: 3px solid #d9d9d9;
+}
+
+.cart-item__top-part__middle {
+  flex: 1 0;
+  margin-left: 20px;
+}
+
+.cart-item__trash {
+  width: 20px;
+}
+
+.adjust-qty {
+  flex-direction: row;
+}
+
+.adjust-qty__button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.adjust-qty__number {
+  width: 45px;
+  text-align: center;
+}
+
+
+
+/*check*/
 
 
 .checkout {
-  height: 300px;
-  background: rgba(0,0,255,0.3);
+  height: 350px;
+  /*background: linear-gradient(to bottom, rgba(196,204,218,0.7) 0%, #c4ccda 25%, transparent);*/
 }
 
 
+.checkout__divider {
+  margin: 30px auto;
+  width: 70%;
+  border-bottom: 1px solid #979797;
+  /*border-width: 0;*/
+}
+
+.checkout__coupon-input {
+  margin: 0 10px;
+  line-height: 2em;
+}
+
+.checkout__calc {
+  margin-top: 10px;
+}
+
+.checkout__calc_line {
+  margin: 0 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  line-height: 2em;
+}
+
+.check__amount {
+  color: #202020;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.check__amount--strikeout {
+  font-weight: 600;
+}
+
+.check__amount--saving {
+  font-weight: 600;
+  color: #DC1A00;
+  align-self: flex-end;
+}
+
+.checkout__button {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #80A590;
+  height: 60px;
+  width: 90%;
+
+  margin: 10px auto;
+}
+
+.checkout__button_text {
+  color: #F7F8FA;
+  font-size: 24px;
+  margin-left: 30px;
+  font-weight: 400;
+}
 
 
+.site__right-sidebar-toggle {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+  padding: 0.6em;
+  background-color: rgb(30,36,56);
+  /*display: none;*/
+}
+.site__right-sidebar-toggle:hover {
+  cursor: pointer;
+}
 
-
-
-
-
-
-
-
-
-
-
-
+body.js-show-right-sidebar .site__right-sidebar-toggle {
+  transform: rotate(0deg);
+  left: 0;
+  right: auto;
+}
 
 
 
